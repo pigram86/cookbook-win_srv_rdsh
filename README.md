@@ -23,77 +23,77 @@ Recipes
 
 win_srv_rdsh::default.rb
 -------------------------------
-*case node['platform_version']
-*when "6.3.9600"
-*  include_recipe "win_srv_rdsh::w2012r2"
-*when "6.2.9200"
-*  include_recipe "win_srv_rdsh::w2012"
-*when "6.1.7601"
-*  include_recipe "win_srv_rdsh::w2k8r2"
-*end
+* case node['platform_version']
+* when "6.3.9600"
+*   include_recipe "win_srv_rdsh::w2012r2"
+* when "6.2.9200"
+*   include_recipe "win_srv_rdsh::w2012"
+* when "6.1.7601"
+*   include_recipe "win_srv_rdsh::w2k8r2"
+* end
 
 win_srv_rdsh::w2012.rb
 -----------------------------
-*%w{ Xps-Foundation-Xps-Viewer Remote-Desktop-Services ServerMediaFoundation AppServer DesktopExperience }.each do |feature|
-*  windows_feature feature do
-*    action :install
-*    not_if {reboot_pending?}
-*  end
-*end
+* %w{ Xps-Foundation-Xps-Viewer Remote-Desktop-Services ServerMediaFoundation AppServer DesktopExperience }.each do |feature|
+*   windows_feature feature do
+*     action :install
+*     not_if {reboot_pending?}
+*   end
+* end
 
-*windows_reboot 30 do
-*  reason 'Chef said to'
-*  only_if {reboot_pending?}
-*end
+* windows_reboot 30 do
+*   reason 'Chef said to'
+*   only_if {reboot_pending?}
+* end
 
 win_srv_rdsh::w2012r2.rb
 -------------------------------
-*%w{ File-Services CoreFileServer  WindowsServerBackup NetFx3ServerFeatures NetFx3 ServerManager-Core-RSAT ServerManager-Core-RSAT-Role-Tools RSAT-AD-Tools-Feature RSAT-ADDS-Tools-Feature }.each do |feature|
-*  windows_feature feature do
-*    action :install
-*    not_if {reboot_pending?}
-*  end
-*end
+* %w{ File-Services CoreFileServer  WindowsServerBackup NetFx3ServerFeatures NetFx3 ServerManager-Core-RSAT ServerManager-Core-RSAT-Role-Tools RSAT-AD-Tools-Feature RSAT-ADDS-Tools-Feature }.each do |feature|
+*   windows_feature feature do
+*     action :install
+*     not_if {reboot_pending?}
+*   end
+* end
 
 
-*windows_reboot 30 do
-*  reason 'Chef said to'
-*  only_if {reboot_pending?}
-*end
+* windows_reboot 30 do
+*   reason 'Chef said to'
+*   only_if {reboot_pending?}
+* end
 
 win_srv_rdsh::w2k8r2.rb
 ------------------------------
-*# install RDS
-*powershell node['w2k8']['rds'] do
-*  code <<-EOH
-*  Import-Module ServerManager
-*  Add-WindowsFeature RDS-RD-Server
-*  EOH
-*  not_if {reboot_pending?}
-*end
+* # install RDS
+* powershell node['w2k8']['rds'] do
+*   code <<-EOH
+*   Import-Module ServerManager
+*   Add-WindowsFeature RDS-RD-Server
+*   EOH
+*   not_if {reboot_pending?}
+* end
 
 
-*# Install desktop experience
-*powershell node['w2k8']['deskexp'] do
-*  code <<-EOH
-*  Import-Module ServerManager
-*  Add-WindowsFeature Desktop-Experience
-*  EOH
-*  not_if {reboot_pending?}
-*end
+* # Install desktop experience
+* powershell node['w2k8']['deskexp'] do
+*   code <<-EOH
+*   Import-Module ServerManager
+*   Add-WindowsFeature Desktop-Experience
+*   EOH
+*   not_if {reboot_pending?}
+* end
 
-*powershell node['w2k8']['xps'] do
-*  code <<-EOH
-*  Import-Module ServerManager
-*  Add-WindowsFeature XPS-Viewer
-*  EOH
-*  not_if {reboot_pending?}
-*end
+* powershell node['w2k8']['xps'] do
+*   code <<-EOH
+*   Import-Module ServerManager
+*   Add-WindowsFeature XPS-Viewer
+*   EOH
+*   not_if {reboot_pending?}
+* end
 
-*windows_reboot 30 do 
-*  reason 'Chef said to'
-*  only_if {reboot_pending?}
-*end
+* windows_reboot 30 do 
+*   reason 'Chef said to'
+*   only_if {reboot_pending?}
+* end
 
 Usage
 =====
