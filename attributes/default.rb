@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: windows_server_rdsh
+# Cookbook Name:: win_srv_rdsh
 # Recipe:: default
 #
-# Copyright (C) 2014 Todd Pigram
+# Copyright (C) 2013-2014 Todd Pigram
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-default[:w2k8][:rds] = "RDS"
-default[:w2k8][:deskexp] = "desktop_experience"
-default[:w2k8][:xps] = "XPS"
+default['w2k8']['rds'] = "RDS"
+default['w2k8']['deskexp'] = "desktop_experience"
+default['w2k8']['xps'] = "XPS"

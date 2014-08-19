@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: windows_server_rdsh
+# Cookbook Name:: win_srv_rdsh
 # Recipe:: w2012r2
 #
-# Copyright (C) 2014 Todd Pigram
+# Copyright (C) 2013-2014 Todd Pigram
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "windows::reboot_handler"
 
 %w{ Xps-Foundation-Xps-Viewer Remote-Desktop-Services ServerMediaFoundation AppServer DesktopExperience }.each do |feature|
   windows_feature feature do
@@ -25,7 +24,7 @@ include_recipe "windows::reboot_handler"
   end
 end
 
-windows_reboot 60 do
-  reason 'Chef Pigram said to'
+windows_reboot 30 do
+  reason 'Chef said to'
   only_if {reboot_pending?}
 end

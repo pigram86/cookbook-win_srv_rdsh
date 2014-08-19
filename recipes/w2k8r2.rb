@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: windows_server_rdsh
+# Cookbook Name:: win_srv_rdsh
 # Recipe:: w2k8r2
 #
-# Copyright (C) 2014 Todd Pigram
+# Copyright (C) 2013-2014 Todd Pigram
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "windows::reboot_handler"
 
 # install RDS
-powershell node[:w2k8][:rds] do
+powershell node['w2k8']['rds'] do
   code <<-EOH
   Import-Module ServerManager
   Add-WindowsFeature RDS-RD-Server
@@ -29,7 +28,7 @@ end
 
 
 # Install desktop experience
-powershell node[:w2k8][:deskexp] do
+powershell node['w2k8']['deskexp'] do
   code <<-EOH
   Import-Module ServerManager
   Add-WindowsFeature Desktop-Experience
@@ -37,7 +36,7 @@ powershell node[:w2k8][:deskexp] do
   not_if {reboot_pending?}
 end
 
-powershell node[:w2k8][:xps] do
+powershell node['w2k8']['xps'] do
   code <<-EOH
   Import-Module ServerManager
   Add-WindowsFeature XPS-Viewer
@@ -45,7 +44,7 @@ powershell node[:w2k8][:xps] do
   not_if {reboot_pending?}
 end
 
-windows_reboot 60 do 
-  reason 'Chef Pigram said to'
+windows_reboot 30 do 
+  reason 'Chef said to'
   only_if {reboot_pending?}
 end
